@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 
 import { ProblemeComponent } from './probleme.component';
+import { VerifierCaracteresValidator } from '../shared/longueur-minimum/longueur-minimum.component';
 
 describe('ProblemeComponent', () => {
   let component: ProblemeComponent;
@@ -23,11 +24,20 @@ describe('ProblemeComponent', () => {
     expect(component).toBeTruthy();
   });
   it('Zone PRÉNOM invalide avec 2 caractères', () => {
-    let zone = component.problemeForm.get("prenom");
-    zone?.setValue('ab');
-    let errors = zone?.errors || {};
-    expect(errors['minlength']).toBeTruthy();
-  });
+    let errors: ValidationErrors | null;
+
+    // Créez un AbstractControl avec la valeur "ab" (2 caractères)
+    let control = new FormControl('ab', [
+        VerifierCaracteresValidator.longueurMinimum(3),
+        Validators.required,
+    ]);
+
+    // Obtenez les erreurs du contrôle
+    errors = control.errors;
+
+    // Vérifiez si l'erreur attendue est présente
+    expect(errors?.['nbreCaracteresInsuffisant']).toBeTruthy();
+});
   it('Zone PRÉNOM valide avec 3 caractères', () => {
     let zone = component.problemeForm.get("prenom");
     zone?.setValue('abc');
@@ -47,13 +57,13 @@ describe('ProblemeComponent', () => {
     let errors = zone?.errors || {};
     expect(errors['required']).toBeTruthy();
   });
-  it('Zone PRÉNOM valide avec 10 espaces', () => {
+  it('Zone PRÉNOM invalide avec 10 espaces', () => {
     let zone = component.problemeForm.get("prenom");
     zone?.setValue('          ');
     let errors = zone?.errors || {};
     expect(errors['minlength']).toBeFalsy();
   });
-  it('Zone PRÉNOM valide avec 2 espaces et 1 caractère', () => {
+  it('Zone PRÉNOM invalide avec 2 espaces et 1 caractère', () => {
     let zone = component.problemeForm.get("prenom");
     zone?.setValue('  a');
     let errors = zone?.errors || {};
