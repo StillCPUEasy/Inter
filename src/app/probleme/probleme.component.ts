@@ -10,7 +10,7 @@ export class ProblemeComponent implements OnInit{
   problemeForm: FormGroup;
   constructor(private fb: FormBuilder) {
     this.problemeForm = this.fb.group({
-      prenom: ['', [Validators.required,Validators.minLength(3),this.verifEspace]],
+      prenom: ['', [Validators.required,Validators.minLength(3)]],
     });
   }
 
@@ -18,16 +18,5 @@ export class ProblemeComponent implements OnInit{
   }
 
   save(): void{}
-  
-  verifEspace(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    const isEspace = (value || '').trim().length === 0;
-  
-    if (isEspace) {
-      return { 'espace': true };
-    }
-  
-    return null;
-  }
 
 }
