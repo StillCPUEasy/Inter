@@ -1,0 +1,21 @@
+<div class="container">
+  <br/>
+  <div class="card">
+    <div class="card-header text-white bg-secondary">
+      <!-- L'en-tête ici -->
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Déclarer un problème</h5>
+      <p class="card-text">Veuillez renseigner les zones suivantes et soumettre votre demande</p>
+
+      <!-- Add the form here -->
+      <form [formGroup]="problemeForm" (ngSubmit)="save()">
+        <div class="form-group">
+          <label for="prenom">Prénom:</label>
+          <input type="text" class="form-control" id="prenom" formControlName="prenom" placeholder="Votre prénom ici (obligatoire)">
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
