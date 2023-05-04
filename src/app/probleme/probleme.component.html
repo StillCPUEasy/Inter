@@ -99,6 +99,35 @@
             </div>          
           </div>          
         </div>
+        <!-- Ajoutez les boutons radio "Me notifier" et "Ne pas me notifier" -->
+        <div class="form-group">
+          <label>Notification:</label>
+          <div>
+            <input type="radio" id="meNotifier" name="notification" value="meNotifier" [(ngModel)]="notification" (change)="onNotificationChange()" />
+            <label for="meNotifier">Me notifier</label>
+          </div>
+          <div>
+            <input type="radio" id="nePasMeNotifier" name="notification" value="nePasMeNotifier" [(ngModel)]="notification" (change)="onNotificationChange()" />
+            <label for="nePasMeNotifier">Ne pas me notifier</label>
+          </div>
+        </div>
+
+        <!-- Ajoutez les champs "Adresse courriel", "Confirmation Adresse courriel" et "Téléphone" -->
+        <div class="form-group">
+          <label for="courriel">Adresse courriel:</label>
+          <input type="email" id="courriel" name="courriel" [disabled]="!isNotificationEnabled" [(ngModel)]="problemeForm.controls.courrielGroup.controls.courriel.value" />
+        </div>
+
+        <div class="form-group">
+          <label for="courrielConfirmation">Confirmation Adresse courriel:</label>
+          <input type="email" id="courrielConfirmation" name="courrielConfirmation" [disabled]="!isNotificationEnabled" [(ngModel)]="problemeForm.controls.courrielGroup.controls.courrielConfirmation.value" />
+        </div>
+
+        <div class="form-group">
+          <label for="telephone">Téléphone:</label>
+          <input type="tel" id="telephone" name="telephone" [disabled]="!isNotificationEnabled" [(ngModel)]="problemeForm.controls.telephone.value" />
+        </div>
+
       </form>
     </div>
   </div>
