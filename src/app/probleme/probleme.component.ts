@@ -48,6 +48,7 @@ export class ProblemeComponent implements OnInit{
       this.problemeForm.get('courrielGroup').get('courriel').disable();
       this.problemeForm.get('courrielGroup').get('courrielConfirmation').disable();
       this.problemeForm.get('telephone').disable();
+      this.problemeForm.get('telephone').reset();
     }
   }
   
