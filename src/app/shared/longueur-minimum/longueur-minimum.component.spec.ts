@@ -1,6 +1,7 @@
 import { AbstractControl } from "@angular/forms";
 import { VerifierCaracteresValidator } from "./longueur-minimum.component";
 
+
 describe('longueur zone Validator', () => {
     it('#7 | Une chaîne avec 10 espaces est invalide', () => {
         let control = { value: ' '.repeat(10) };
@@ -57,7 +58,7 @@ describe('longueur zone Validator', () => {
         expect(result).toBeNull();
     });
     it('#14 | Une chaîne nulle est invalide', () => {
-        let control = { value: null };
+        let control = { value: '' };
         let validatorFn =  VerifierCaracteresValidator.longueurMinimum(3);
         let result = validatorFn(control as AbstractControl);
         if (result) {

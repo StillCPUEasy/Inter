@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ProblemeComponent } from './probleme.component';
 import { VerifierCaracteresValidator } from '../shared/longueur-minimum/longueur-minimum.component';
 
@@ -10,15 +10,16 @@ describe('ProblemeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProblemeComponent ],
-      imports: [ ReactiveFormsModule ]
+        declarations: [ProblemeComponent],
+        imports: [ReactiveFormsModule, HttpClientTestingModule], // Ajoutez HttpClientTestingModule ici
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(ProblemeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+});
+
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -69,5 +70,35 @@ describe('ProblemeComponent', () => {
     let errors = zone?.errors || {};
     expect(errors['minlength']).toBeFalsy();
   });
-  
+  it('#15 | Zone TELEPHONE est désactivée quand ne pas me notifier', () => {
+    component.notificationValue = 'nePasMeNotifier';
+    component.onNotificationChange(component.notificationValue);
+
+    let zone = component.problemeForm.get('telephone');
+    expect(zone?.disabled).toBeTruthy();
+  });
+
+  it('#16 | Zone TELEPHONE est vide quand ne pas me notifier', () => {
+    component.problemeForm.get('telephone').setValue('1234567890');
+    component.onNotificationChange('nePasMeNotifier');
+    let telephoneValue = component.problemeForm.get('telephone').value;
+    expect(telephoneValue === null || telephoneValue === '').toBeTrue();
+  });
+
+  it('#17 | Zone ADRESSE COURRIEL est désactivée quand ne pas me notifier', () => {
+    component.notificationValue = 'nePasMeNotifier';
+    component.onNotificationChange(component.notificationValue);
+
+    let zone = component.problemeForm.get('courrielGroup.courriel');
+    expect(zone?.disabled).toBeTruthy();
+  });
+
+  it('#18 | Zone CONFIRMER COURRIEL est désactivée quand ne pas me notifier', () => {
+    component.notificationValue = 'nePasMeNotifier';
+    component.onNotificationChange(component.notificationValue);
+
+    let zone = component.problemeForm.get('courrielGroup.courrielConfirmation');
+    expect(zone?.disabled).toBeTruthy();
+  });
+
 });
