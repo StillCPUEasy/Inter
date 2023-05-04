@@ -15,6 +15,8 @@ export class ProblemeComponent implements OnInit{
   errorMessage: string;
   notification: string;
   isNotificationEnabled: boolean;
+  notificationValue: string = 'nePasMeNotifier';
+
   constructor(private fb: FormBuilder, private typeproblemeService:TypeProbleme ) {
     this.problemeForm = this.fb.group({
       prenom: ['', [VerifierCaracteresValidator.longueurMinimum(3),Validators.required]],
@@ -37,14 +39,19 @@ export class ProblemeComponent implements OnInit{
     this.isNotificationEnabled = false;
   }
 
-  onNotificationChange(): void {
-    if (this.notification === 'meNotifier') {
-      this.isNotificationEnabled = true;
+  onNotificationChange(value: string): void {
+    if (value === 'meNotifier') {
+      this.problemeForm.get('courrielGroup').get('courriel').enable();
+      this.problemeForm.get('courrielGroup').get('courrielConfirmation').enable();
+      this.problemeForm.get('telephone').enable();
     } else {
-      this.isNotificationEnabled = false;
+      this.problemeForm.get('courrielGroup').get('courriel').disable();
+      this.problemeForm.get('courrielGroup').get('courrielConfirmation').disable();
+      this.problemeForm.get('telephone').disable();
     }
   }
   
+
   save(): void{}
 
 }
