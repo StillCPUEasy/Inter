@@ -86,6 +86,19 @@
             </span>
           </span>
         </div>
+        <div class="from-group row">
+          <div class="from-group row">
+            <div class="form-group row">
+              <label for="typeProblemeId" class="col-md-2 col-form-label text-right">Type de problème :</label>
+              <div class="col-md-10">
+                <select class="form-control" id="typeProblemeId" formControlName="typeprobleme">
+                  <option value="">Sélectionnez un type de problème</option>
+                  <option *ngFor="let typeProbleme of typesProbleme" [value]="typeProbleme.id">{{typeProbleme.descriptionTypeProbleme}}</option>
+                </select>
+              </div>
+            </div>          
+          </div>          
+        </div>
       </form>
     </div>
   </div>
